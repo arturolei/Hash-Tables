@@ -67,7 +67,7 @@ class HashTable:
             return
 
         # If a node is not None, a collision has occurred -> iterate over the list while node is not None
-        # Store the value of the previous node in list in 'prev' variable (initialised to the value of the node itself on first pass)
+        # Store the value of the previous node in list in 'prev' variable because we're going to have to ad
         prev = node
         while node is not None:
             # if the key of the previous node is the same as the one we're passing in, the linked pair already exists ->
@@ -89,12 +89,14 @@ class HashTable:
         Print a warning if the key is not found.
         Fill this in.
         '''
-        # generate the index for the element by hashing the key passed in to insert method
+        # Generate the index for the element by hashing the key passed in to insert method
         index = self._hash_mod(key)
-        # check if storage at new index is empty
+        # Check if storage at new index is empty (if it's empty go to 114)
         node = self.storage[index]
 
-        # if the key of the node at the given index is equal to the key passed in, set the value of the node to None and return from function
+        # Simple case, there's only one node, only one key, we're done; just rremove
+        # If the key of the node at the given index is equal to the key passed in, 
+        # set the value of the node to None and return from function
         if node.key == key: 
             node.value = None
             return
@@ -108,12 +110,12 @@ class HashTable:
             prev = node
             # set the value of the current node == current node.next to continue iterating
             node = node.next
-        # if node is None (we've iterated over all LinkedPairs and not not found a node with the key we're looking for) just return None    
+        # if node is None (we've iterated over all LinkedPairs and not not found a node), we can quit.
         if node is None:
             return None
         # else we have found the node we're looking for -> set the next node of the previous node equal to the next node of the current node   
         prev.next = node.next
-        # set the current node = None
+        # Set the current node = None
         node.value = None    
 
 
@@ -127,12 +129,13 @@ class HashTable:
         # We need to generate our hash key/index for by hashing the key via hash_mod
         index = self._hash_mod(key)
         
-        # Then we need to iterate over linked list at given index
+        # Then we need to iterate over linked list at given index.
        
         node = self.storage[index]
         
-        # If the value of current node is not None and the key of the current node is not equal to the key we're looking for, we still have more elements to check
-        while node is not None and node.key != key:
+        # If the value of current node is not None and the key of the current node is not equal to the key
+        # We need to go over the Linked List (using .next) until we get nothing or we find something
+        while node is not None and node.key != key: 
             node = node.next
         # if we get to a point where node == None then we have reached the end of the list and the element has not been found -> return None
         if node is None:
@@ -163,21 +166,10 @@ class HashTable:
                 # Iterate over linked pairs
                 node = linked_pairs
                 while node is not None:
-                    # insert into the hash table passing in the current nodes key and current nodes value
+                    # Insert into the hash table. 
                     self.insert(node.key, node.value)
-                    # set the val of current node = node.next to continue iteration
+                    # Set the value of current node = node.next to continue iteration
                     node = node.next
-
-    def debug_print(self):
-        for i in range(self.capacity):
-            node = self.storage[i]
-            print('Bucket {}'.format(i))
-            if node:
-                while node:
-                    print('    {}'.format(node.value))
-                    node = node.next
-            else:
-                print('    Empty')
 
 if __name__ == "__main__":
     ht = HashTable(2)
