@@ -70,7 +70,8 @@ class HashTable:
         # Store the value of the previous node in list in 'prev' variable because we're going to have to ad
         prev = node
         while node is not None:
-            # if the key of the previous node is the same as the one we're passing in, the linked pair already exists ->
+            # if the key of the previous node is the same as the one we're passing in, 
+            # the linked pair already exists ->
             if prev.key == key:
                 # overwrite the value of the linked pair
                 prev.value = value 
@@ -79,7 +80,8 @@ class HashTable:
             prev = node
             # and set the value of the current node equal to the value of the next node   
             node = node.next
-        # if the value of node is None (we have reached end of list and exited the while loop), add a new node 
+        # if the value of node is None (we have reached end of list 
+        # and exited the while loop), add a new node 
         prev.next = LinkedPair(key, value)
 
 
@@ -101,7 +103,7 @@ class HashTable:
             node.value = None
             return
 
-        # else, while node is not None iterate over other nodes (ie LinkedPairs)
+        # else, while node is not None iterate over other nodes (because we have to find the right node)
         while node is not None:
             # if the key of the current node == key passed in, break (we will need to set the value of node to None)
             if node.key == key:
@@ -113,7 +115,8 @@ class HashTable:
         # if node is None (we've iterated over all LinkedPairs and not not found a node), we can quit.
         if node is None:
             return None
-        # else we have found the node we're looking for -> set the next node of the previous node equal to the next node of the current node   
+        # else we have found the node we're looking for 
+        # -> set the next node of the previous node equal to the next node of the current node   
         prev.next = node.next
         # Set the current node = None
         node.value = None    
